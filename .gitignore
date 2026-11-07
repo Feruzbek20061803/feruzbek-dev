@@ -1,0 +1,19 @@
+# Private configuration and credentials
+/config.php
+/data/admin.json
+/.env
+/.env.*
+!.env.example
+
+# Runtime uploads
+/uploads/*
+!/uploads/.gitkeep
+!/uploads/.htaccess
+
+# Local files
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+.vscode/
+.idea/
