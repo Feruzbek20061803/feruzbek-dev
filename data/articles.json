@@ -1,0 +1,342 @@
+[
+  {
+    "id": "linux-filesystem",
+    "category": "Linux",
+    "level": "Beginner",
+    "title": {
+      "uz": "Linux fayl tizimi va asosiy kataloglar",
+      "en": "Linux filesystem and core directories"
+    },
+    "excerpt": {
+      "uz": "/, /home, /etc, /var va /usr kataloglarining vazifasi.",
+      "en": "Understand the purpose of /, /home, /etc, /var and /usr."
+    },
+    "body": {
+      "uz": "## Linux kataloglar tuzilishi\nLinux tizimida barcha fayl va kataloglar yagona ildiz katalogi `/` ostida joylashadi.\n\n- `/etc` — tizim va xizmatlarning konfiguratsiya fayllari.\n- `/home` — oddiy foydalanuvchilarning shaxsiy kataloglari.\n- `/var` — loglar, navbatlar va o‘zgarib turadigan ma’lumotlar.\n- `/usr` — dasturlar, kutubxonalar va umumiy resurslar.\n- `/tmp` — vaqtinchalik fayllar.\n- `/root` — root foydalanuvchisining uy katalogi.\n\n### Amaliy buyruqlar\n```bash\npwd\nls -lah /\nls -lah /etc\ndu -sh /var/log\n```\n\n`pwd` joriy katalogni ko‘rsatadi, `ls -lah` yashirin fayllarni ham chiqaradi, `du -sh` esa katalog hajmini jamlab ko‘rsatadi.\n\n### Mashq\n`/etc`, `/home` va `/var/log` kataloglarini ko‘rib chiqing. Ularning vazifasini o‘z so‘zingiz bilan izohlang.",
+      "en": "## Linux directory structure\nIn Linux, all files and directories live under the single root directory `/`.\n\n- `/etc` — system and service configuration files.\n- `/home` — personal directories of regular users.\n- `/var` — logs, queues and changing application data.\n- `/usr` — programs, libraries and shared resources.\n- `/tmp` — temporary files.\n- `/root` — the root user's home directory.\n\n### Practical commands\n```bash\npwd\nls -lah /\nls -lah /etc\ndu -sh /var/log\n```\n\n`pwd` prints the current directory, `ls -lah` includes hidden files, and `du -sh` summarizes directory size.\n\n### Practice\nInspect `/etc`, `/home` and `/var/log`, then describe what each directory is used for."
+    }
+  },
+  {
+    "id": "linux-permissions",
+    "category": "Linux",
+    "level": "Beginner",
+    "title": {
+      "uz": "Linux permissions: chmod, chown va rwx",
+      "en": "Linux permissions: chmod, chown and rwx"
+    },
+    "excerpt": {
+      "uz": "Fayl va kataloglar uchun o‘qish, yozish va bajarish huquqlari.",
+      "en": "Read, write and execute permissions for files and directories."
+    },
+    "body": {
+      "uz": "## rwx nimani anglatadi?\nLinux ruxsatlari uchta toifa bo‘yicha beriladi: owner, group va others. Har birida `r` — o‘qish, `w` — yozish, `x` — bajarish.\n\n### Raqamli qiymatlar\n- `r = 4`\n- `w = 2`\n- `x = 1`\n\nMasalan, `755` egaga barcha huquqlarni, guruh va boshqalarga o‘qish hamda bajarishni beradi.\n```bash\nchmod 755 script.sh\nchmod 640 config.txt\nchown user:group file.txt\nls -l\n```\n\n**Eslatma:** tizim fayllariga ruxsatlarni o‘zgartirishdan oldin oqibatini tushuning. `chmod -R 777` xavfsiz yechim emas.\n\n### Mashq\nOddiy matn fayl yarating, unga `640` ruxsat bering va `ls -l` orqali natijani tekshiring.",
+      "en": "## What does rwx mean?\nLinux permissions are assigned to three classes: owner, group and others. `r` means read, `w` write and `x` execute.\n\n### Numeric values\n- `r = 4`\n- `w = 2`\n- `x = 1`\n\nFor example, `755` gives the owner full access and grants read/execute to group and others.\n```bash\nchmod 755 script.sh\nchmod 640 config.txt\nchown user:group file.txt\nls -l\n```\n\n**Note:** understand the impact before changing system permissions. `chmod -R 777` is not a safe fix.\n\n### Practice\nCreate a text file, set permissions to `640` and verify the result using `ls -l`."
+    }
+  },
+  {
+    "id": "linux-systemd",
+    "category": "Linux",
+    "level": "Intermediate",
+    "title": {
+      "uz": "systemd va systemctl orqali xizmatlarni boshqarish",
+      "en": "Manage services with systemd and systemctl"
+    },
+    "excerpt": {
+      "uz": "Linux xizmatlari holatini ko‘rish, ishga tushirish va avtomatik yoqish.",
+      "en": "Inspect, start and enable Linux services."
+    },
+    "body": {
+      "uz": "## systemd nima?\nsystemd ko‘plab Linux distributivlarida tizim va xizmatlarni boshqaruvchi init tizimidir. `systemctl` orqali xizmatlar holati va ishga tushish tartibi boshqariladi.\n\n```bash\nsystemctl status ssh\nsudo systemctl start ssh\nsudo systemctl stop ssh\nsudo systemctl enable ssh\nsudo systemctl restart ssh\njournalctl -u ssh -n 50\n```\n\n`start` xizmatni hozir ishga tushiradi; `enable` esa yuklanishda avtomatik ishga tushishini sozlaydi.\n\n### Amaliyot\nSSH xizmati holatini tekshiring va loglarini `journalctl` orqali ko‘ring. Buyruqlar distributivga qarab xizmat nomi farq qilishi mumkin.",
+      "en": "## What is systemd?\nsystemd is the init system used by many Linux distributions to manage the system and services. `systemctl` controls service state and startup behavior.\n\n```bash\nsystemctl status ssh\nsudo systemctl start ssh\nsudo systemctl stop ssh\nsudo systemctl enable ssh\nsudo systemctl restart ssh\njournalctl -u ssh -n 50\n```\n\n`start` starts a service now, while `enable` configures it to start during boot.\n\n### Practice\nCheck the SSH service status and inspect its logs with `journalctl`. Service names can differ by distribution."
+    }
+  },
+  {
+    "id": "linux-lvm",
+    "category": "Linux",
+    "level": "Advanced",
+    "title": {
+      "uz": "LVM asoslari: PV, VG va LV",
+      "en": "LVM basics: PV, VG and LV"
+    },
+    "excerpt": {
+      "uz": "Physical Volume, Volume Group va Logical Volume o‘rtasidagi farq.",
+      "en": "Understand Physical Volumes, Volume Groups and Logical Volumes."
+    },
+    "body": {
+      "uz": "## LVM arxitekturasi\nLVM saqlash joyini moslashuvchan boshqarish imkonini beradi.\n\n- **PV** — LVM ishlatadigan fizik disk yoki partition.\n- **VG** — bir yoki bir nechta PV birlashtirilgan volume group.\n- **LV** — VG ichidan ajratilgan mantiqiy volume.\n\n```bash\npvs\nvgs\nlvs\nlsblk\ndf -h\n```\n\nDiskka yozuvchi `pvcreate`, `vgcreate`, `lvcreate` kabi buyruqlarni faqat test disk yoki virtual mashinada bajaring. Noto‘g‘ri diskni tanlash ma’lumotlarni yo‘qotishi mumkin.\n\n### Mashq\nVirtualBox ichida qo‘shimcha virtual disk yarating va avval `lsblk`, keyin `pvs`, `vgs`, `lvs` natijalarini taqqoslang.",
+      "en": "## LVM architecture\nLVM provides flexible storage management.\n\n- **PV** — a physical disk or partition prepared for LVM.\n- **VG** — a volume group combining one or more PVs.\n- **LV** — a logical volume allocated from a VG.\n\n```bash\npvs\nvgs\nlvs\nlsblk\ndf -h\n```\n\nCommands that write to disks, such as `pvcreate`, `vgcreate` and `lvcreate`, should only be tested on a lab disk or virtual machine. Choosing the wrong disk can destroy data.\n\n### Practice\nAdd a virtual disk in VirtualBox and compare the output of `lsblk`, `pvs`, `vgs` and `lvs`."
+    }
+  },
+  {
+    "id": "cisco-osi",
+    "category": "Cisco",
+    "level": "Beginner",
+    "title": {
+      "uz": "OSI modeli: 7 qatlamni tushunish",
+      "en": "The OSI model: understanding its seven layers"
+    },
+    "excerpt": {
+      "uz": "Tarmoq aloqasini yetti qatlam orqali tushuntirish.",
+      "en": "Understand network communication through seven layers."
+    },
+    "body": {
+      "uz": "## OSI qatlamlari\n1. Physical — bitlarni fizik muhit orqali uzatish.\n2. Data Link — kadrlar, MAC manzillar va switching.\n3. Network — IP manzillash va routing.\n4. Transport — TCP/UDP va portlar.\n5. Session — sessiyalarni boshqarish.\n6. Presentation — formatlash va shifrlash bilan bog‘liq vazifalar.\n7. Application — foydalanuvchi ilovalariga tarmoq xizmatlari.\n\n### Eslab qolish\nSwitch odatda 2-qatlamda, router esa 3-qatlamda ishlaydi. Bu umumiy qoida; multilayer qurilmalar bir nechta qatlam vazifalarini bajarishi mumkin.\n\n### Mashq\nBrauzerda HTTPS sayt ochilganda DNS, TCP yoki QUIC, TLS va IP qatlamlarining qanday aloqadorligini izohlang.",
+      "en": "## The seven OSI layers\n1. Physical — transmitting bits over a physical medium.\n2. Data Link — frames, MAC addresses and switching.\n3. Network — IP addressing and routing.\n4. Transport — TCP/UDP and ports.\n5. Session — managing sessions.\n6. Presentation — data representation and encryption-related functions.\n7. Application — network services used by applications.\n\n### Remember\nA typical switch operates at Layer 2 and a router at Layer 3. Multilayer devices can perform functions across layers.\n\n### Practice\nExplain how DNS, TCP or QUIC, TLS and IP relate when a browser opens an HTTPS website."
+    }
+  },
+  {
+    "id": "cisco-vlan",
+    "category": "Cisco",
+    "level": "Intermediate",
+    "title": {
+      "uz": "Cisco VLAN va trunk konfiguratsiyasi",
+      "en": "Cisco VLAN and trunk configuration"
+    },
+    "excerpt": {
+      "uz": "Switchda VLAN yaratish, portni access va trunk rejimiga o‘tkazish.",
+      "en": "Create VLANs and configure access and trunk ports on a switch."
+    },
+    "body": {
+      "uz": "## VLAN nima?\nVLAN bitta fizik switch tarmog‘ini alohida mantiqiy broadcast domenlarga ajratadi.\n\n```text\nenable\nconfigure terminal\nvlan 10\n name STUDENTS\nvlan 20\n name STAFF\ninterface gigabitEthernet 0/1\n switchport mode access\n switchport access vlan 10\ninterface gigabitEthernet 0/24\n switchport mode trunk\nend\nshow vlan brief\nshow interfaces trunk\n```\n\nBuyruqlar qurilma modeli va IOS versiyasiga qarab farq qilishi mumkin. Trunkning ruxsat etilgan VLAN ro‘yxatini alohida tekshiring.\n\n### Mashq\nPacket Tracer'da ikkita VLAN yarating, access portlarni sozlang va ikki switch orasida trunk hosil qiling.",
+      "en": "## What is a VLAN?\nA VLAN divides one physical switched network into separate logical broadcast domains.\n\n```text\nenable\nconfigure terminal\nvlan 10\n name STUDENTS\nvlan 20\n name STAFF\ninterface gigabitEthernet 0/1\n switchport mode access\n switchport access vlan 10\ninterface gigabitEthernet 0/24\n switchport mode trunk\nend\nshow vlan brief\nshow interfaces trunk\n```\n\nCommands vary by device model and IOS version. Verify the allowed VLAN list on trunks.\n\n### Practice\nCreate two VLANs in Packet Tracer, assign access ports and configure a trunk between two switches."
+    }
+  },
+  {
+    "id": "cisco-intervlan",
+    "category": "Cisco",
+    "level": "Intermediate",
+    "title": {
+      "uz": "Inter-VLAN Routing: router-on-a-stick",
+      "en": "Inter-VLAN routing: router-on-a-stick"
+    },
+    "excerpt": {
+      "uz": "Turli VLAN'lardagi qurilmalar o‘zaro qanday aloqa qilishini sozlash.",
+      "en": "Configure communication between devices in different VLANs."
+    },
+    "body": {
+      "uz": "## Nima uchun kerak?\nVLAN'lar bir-biridan ajratilgan bo‘ladi. Ular orasida aloqa uchun Layer 3 routing kerak. Router-on-a-stick usulida router va switch orasida trunk ishlatiladi.\n\n```text\ninterface g0/0\n no shutdown\ninterface g0/0.10\n encapsulation dot1Q 10\n ip address 192.168.10.1 255.255.255.0\ninterface g0/0.20\n encapsulation dot1Q 20\n ip address 192.168.20.1 255.255.255.0\n```\n\nSwitchdagi routerga ulangan port trunk bo‘lishi kerak. Har bir VLAN uchun gateway sifatida tegishli subinterface IP manzili ishlatiladi.\n\n### Tekshirish\n`show ip interface brief`, `show interfaces trunk` va `ping` buyruqlaridan foydalaning.",
+      "en": "## Why is it needed?\nVLANs are isolated from each other. Layer 3 routing is required for communication between them. Router-on-a-stick uses a trunk between a router and a switch.\n\n```text\ninterface g0/0\n no shutdown\ninterface g0/0.10\n encapsulation dot1Q 10\n ip address 192.168.10.1 255.255.255.0\ninterface g0/0.20\n encapsulation dot1Q 20\n ip address 192.168.20.1 255.255.255.0\n```\n\nThe switch port connected to the router must be a trunk. Each subinterface IP is used as the gateway for its VLAN.\n\n### Verification\nUse `show ip interface brief`, `show interfaces trunk` and `ping`."
+    }
+  },
+  {
+    "id": "cisco-ospf",
+    "category": "Cisco",
+    "level": "Advanced",
+    "title": {
+      "uz": "OSPF: qo‘shnilik va asosiy konfiguratsiya",
+      "en": "OSPF: neighbor relationships and basic configuration"
+    },
+    "excerpt": {
+      "uz": "OSPF process, router ID va network komandasi.",
+      "en": "OSPF process, router ID and network statements."
+    },
+    "body": {
+      "uz": "## OSPF haqida\nOSPF — link-state dinamik routing protokoli. Routerlar LSDB ma’lumotlari asosida SPF algoritmi bilan yo‘l tanlaydi.\n\n```text\nenable\nconfigure terminal\nrouter ospf 1\n router-id 1.1.1.1\n network 10.0.0.0 0.0.0.255 area 0\nend\nshow ip ospf neighbor\nshow ip route ospf\n```\n\nWildcard mask subnet maskning teskari ko‘rinishidir. OSPF qo‘shniligi uchun area, subnet, hello/dead timer va autentifikatsiya kabi parametrlar mos bo‘lishi kerak.\n\n### Mashq\nPacket Tracer'da uchta router bilan area 0 topologiyasini yarating va neighbor holatini tekshiring.",
+      "en": "## About OSPF\nOSPF is a link-state dynamic routing protocol. Routers build an LSDB and use the SPF algorithm to select paths.\n\n```text\nenable\nconfigure terminal\nrouter ospf 1\n router-id 1.1.1.1\n network 10.0.0.0 0.0.0.255 area 0\nend\nshow ip ospf neighbor\nshow ip route ospf\n```\n\nA wildcard mask is the inverse of a subnet mask. OSPF neighbors must agree on parameters such as area, subnet, hello/dead timers and authentication.\n\n### Practice\nBuild an area 0 topology with three routers in Packet Tracer and verify neighbor states."
+    }
+  },
+  {
+    "id": "mikrotik-dhcp",
+    "category": "MikroTik",
+    "level": "Beginner",
+    "title": {
+      "uz": "MikroTik DHCP Server: boshlang‘ich sozlash",
+      "en": "MikroTik DHCP Server: initial configuration"
+    },
+    "excerpt": {
+      "uz": "IP pool, DHCP network va server tushunchalari.",
+      "en": "Understand IP pools, DHCP networks and DHCP servers."
+    },
+    "body": {
+      "uz": "## DHCP jarayoni\nDHCP mijozga IP manzil, subnet mask, gateway va DNS kabi parametrlarni avtomatik beradi. MikroTik'da DHCP server yaratishdan oldin interfeysga IP manzil beriladi.\n\n### Winbox orqali\n1. IP → Addresses bo‘limida LAN interfeysga gateway IP belgilang.\n2. IP → Pool orqali tarqatiladigan manzillar oralig‘ini yarating.\n3. IP → DHCP Server → DHCP Setup ustasini ishga tushiring.\n4. Network, gateway, pool va DNS parametrlarini tekshiring.\n\n### Terminalda ko‘rish\n```text\n/ip address print\n/ip pool print\n/ip dhcp-server print\n/ip dhcp-server lease print\n```\n\n### Mashq\nVirtual MikroTik laboratoriyasida alohida LAN subnet uchun DHCP server sozlang va mijoz lease olganini tekshiring.",
+      "en": "## DHCP process\nDHCP automatically provides clients with parameters such as an IP address, subnet mask, gateway and DNS. Assign an IP address to the interface before creating a MikroTik DHCP server.\n\n### Using Winbox\n1. Assign a LAN gateway address under IP → Addresses.\n2. Create an address range under IP → Pool.\n3. Run IP → DHCP Server → DHCP Setup.\n4. Verify network, gateway, pool and DNS settings.\n\n### Inspect from terminal\n```text\n/ip address print\n/ip pool print\n/ip dhcp-server print\n/ip dhcp-server lease print\n```\n\n### Practice\nConfigure DHCP for a LAN subnet in a virtual MikroTik lab and verify that a client receives a lease."
+    }
+  },
+  {
+    "id": "mikrotik-nat",
+    "category": "MikroTik",
+    "level": "Intermediate",
+    "title": {
+      "uz": "MikroTik NAT va masquerade",
+      "en": "MikroTik NAT and masquerade"
+    },
+    "excerpt": {
+      "uz": "LAN tarmog‘iga internetga chiqish imkonini berish.",
+      "en": "Allow a LAN network to access the internet."
+    },
+    "body": {
+      "uz": "## Source NAT\nMasquerade — dinamik WAN IP ishlatilganda keng qo‘llanadigan srcnat turi. WAN interfeys nomi qurilmangiz konfiguratsiyasiga mos bo‘lishi shart.\n\n```text\n/ip firewall nat add chain=srcnat out-interface=WAN action=masquerade\n/ip firewall nat print\n```\n\n**Xavfsizlik:** WAN interfeys nomini tekshirmasdan qoida qo‘shmang. Amaldagi firewall siyosatini zaxiralang.\n\n### Mashq\nMikroTik CHR laboratoriyasida LAN va WAN interfeyslarini belgilang, NAT qoidasini yarating va trafikni tekshiring.",
+      "en": "## Source NAT\nMasquerade is a commonly used srcnat action when the WAN address is dynamic. The WAN interface name must match your device configuration.\n\n```text\n/ip firewall nat add chain=srcnat out-interface=WAN action=masquerade\n/ip firewall nat print\n```\n\n**Security:** verify the WAN interface before adding a rule and back up the current firewall policy.\n\n### Practice\nIn a MikroTik CHR lab, identify LAN and WAN interfaces, add a NAT rule and verify traffic."
+    }
+  },
+  {
+    "id": "linux-network-diagnostics",
+    "category": "Linux",
+    "level": "Intermediate",
+    "title": {
+      "uz": "Linux tarmoq diagnostikasi",
+      "en": "Linux network diagnostics"
+    },
+    "excerpt": {
+      "uz": "ip, ping, traceroute, ss va DNS tekshiruvlari.",
+      "en": "Inspect networking with ip, ping, traceroute, ss and DNS tools."
+    },
+    "body": {
+      "uz": "## Tarmoq holatini tekshirish\nLinux serverda muammoni aniqlash uchun interfeys, routing, DNS va socket holatini ketma-ket tekshiring.\n\n```bash\nip addr\nip route\nping -c 4 1.1.1.1\ngetent hosts example.com\nss -tulpn\ntraceroute example.com\n```\n\n`ping` ICMP javobini tekshiradi; u bloklangan bo‘lishi mumkin. IP manzilga ping ishlashi DNS ham to‘g‘ri degani emas. `getent hosts` nom yechilishini tekshirishga yordam beradi.\n\n### Troubleshooting tartibi\n1. Link va interface holatini tekshiring.\n2. IP address va subnetni tekshiring.\n3. Default route va gateway'ni tekshiring.\n4. DNS resolution'ni tekshiring.\n5. Firewall va service portlarini tekshiring.",
+      "en": "## Inspect network state\nTo troubleshoot a Linux server, inspect interface state, routes, DNS and sockets step by step.\n\n```bash\nip addr\nip route\nping -c 4 1.1.1.1\ngetent hosts example.com\nss -tulpn\ntraceroute example.com\n```\n\n`ping` tests ICMP reachability, which may be blocked. A successful ping to an IP does not prove DNS works. `getent hosts` helps test name resolution.\n\n### Troubleshooting sequence\n1. Check link and interface state.\n2. Verify the IP address and subnet.\n3. Check the default route and gateway.\n4. Test DNS resolution.\n5. Inspect firewall rules and service ports."
+    }
+  },
+  {
+    "id": "cisco-ospf-multiarea",
+    "category": "Cisco",
+    "level": "Advanced",
+    "title": {
+      "uz": "OSPF multi-area asoslari",
+      "en": "OSPF multi-area fundamentals"
+    },
+    "excerpt": {
+      "uz": "Area 0, ABR va tarmoqni hududlarga ajratish.",
+      "en": "Understand Area 0, ABRs and hierarchical routing design."
+    },
+    "body": {
+      "uz": "## OSPF area nima?\nOSPF katta tarmoqni alohida area'larga ajratish imkonini beradi. Backbone area — **Area 0**. Boshqa oddiy area'lar odatda backbone bilan bog‘langan bo‘lishi kerak.\n\n- **Internal Router** — barcha OSPF interfeyslari bir area ichida.\n- **ABR** — bir nechta area'ga ulangan router va area'lar o‘rtasida LSDB ma’lumotlarini ajratadi.\n- **ASBR** — boshqa routing domenidan marshrutlarni OSPF'ga kiritadi.\n\n### Konfiguratsiya namunasi\n```text\nrouter ospf 1\n router-id 1.1.1.1\n network 10.0.0.0 0.0.0.255 area 0\n network 10.1.0.0 0.0.255.255 area 10\n```\n\nAniq network statement va area dizayni topologiya hamda subnetlarga mos bo‘lishi kerak. `show ip ospf interface brief`, `show ip ospf neighbor` va `show ip route ospf` bilan tekshiring.",
+      "en": "## What is an OSPF area?\nOSPF can divide a large routing domain into areas. The backbone is **Area 0**. Other normal areas should connect to the backbone.\n\n- **Internal Router** — all OSPF interfaces belong to one area.\n- **ABR** — connects multiple areas and keeps their link-state databases separated.\n- **ASBR** — injects routes from another routing domain into OSPF.\n\n### Configuration example\n```text\nrouter ospf 1\n router-id 1.1.1.1\n network 10.0.0.0 0.0.0.255 area 0\n network 10.1.0.0 0.0.255.255 area 10\n```\n\nMatch network statements and area design to the actual topology and subnets. Verify with `show ip ospf interface brief`, `show ip ospf neighbor` and `show ip route ospf`."
+    }
+  },
+  {
+    "id": "mikrotik-backup",
+    "category": "MikroTik",
+    "level": "Beginner",
+    "title": {
+      "uz": "MikroTik konfiguratsiyasini backup qilish",
+      "en": "Back up a MikroTik configuration"
+    },
+    "excerpt": {
+      "uz": "Binary backup va export konfiguratsiyasi o‘rtasidagi farq.",
+      "en": "Understand the difference between binary backups and configuration exports."
+    },
+    "body": {
+      "uz": "## Backup turlari\nRouterOS'da binary backup va matnli export mavjud. Binary backup odatda ayni qurilma yoki mos muhitga tiklash uchun qulay. Export esa konfiguratsiya buyruqlarini matn ko‘rinishida ko‘rib chiqish va hujjatlashtirishga yordam beradi.\n\n```text\n/system backup save name=before-change\n/export file=router-config\n/file print\n```\n\nBackup fayllarini xavfsiz joyda saqlang va unga kirishni cheklang. Export ichida maxfiy ma’lumotlar bo‘lishi mumkin; versiya va export parametrlarini hisobga oling.\n\n### Mashq\nCHR laboratoriyasida o‘zgarishdan oldin backup oling, keyin export yarating va fayllar ro‘yxatini tekshiring.",
+      "en": "## Backup types\nRouterOS provides binary backups and text exports. A binary backup is typically useful for restoring to the same device or a compatible environment. An export helps inspect and document configuration commands as text.\n\n```text\n/system backup save name=before-change\n/export file=router-config\n/file print\n```\n\nStore backups securely and restrict access. Exports may contain sensitive information; consider the RouterOS version and export options.\n\n### Practice\nIn a CHR lab, create a backup before making changes, then create an export and inspect the file list."
+    }
+  },
+  {
+    "id": "linux-users-groups",
+    "category": "Linux",
+    "level": "Beginner",
+    "title": {
+      "uz": "Linux foydalanuvchilari va guruhlari",
+      "en": "Linux users and groups"
+    },
+    "excerpt": {
+      "uz": "Linux tizimida foydalanuvchi va guruhlar ruxsatlarni boshqarishning asosiy qismidir. Har bir jarayon odatda muayyan foydalanuvchi ",
+      "en": "Users and groups are central to access control in Linux. A process normally runs with a user ID (UID) and group IDs (GIDs)."
+    },
+    "body": {
+      "uz": "Linux tizimida foydalanuvchi va guruhlar ruxsatlarni boshqarishning asosiy qismidir. Har bir jarayon odatda muayyan foydalanuvchi identifikatori (UID) va guruh identifikatori (GID) bilan ishlaydi.\n\n## Foydalanuvchini tekshirish\n```bash\nwhoami\nid\ngetent passwd username\ngetent group developers\n```\n\n## Foydalanuvchi yaratish\n```bash\nsudo adduser ali\nsudo usermod -aG sudo ali\n groups ali\n```\n`-aG` foydalanuvchini mavjud qo‘shimcha guruhlarga qo‘shadi. `-a` ni unutish boshqa qo‘shimcha guruh a’zoliklarini almashtirib yuborishi mumkin.\n\n## Guruh boshqaruvi\n```bash\nsudo groupadd developers\nsudo usermod -aG developers ali\ngetent group developers\n```\n\n## Mashq\n`labuser` foydalanuvchisini yarating, `students` guruhini oching va foydalanuvchini shu guruhga qo‘shing. `id labuser` bilan tekshiring. Ishlab turgan serverda foydalanuvchi yoki sudo huquqlarini o‘zgartirishdan oldin maqsad va kirish yo‘lini tekshiring.",
+      "en": "Users and groups are central to access control in Linux. A process normally runs with a user ID (UID) and group IDs (GIDs).\n\n## Inspect identities\n```bash\nwhoami\nid\ngetent passwd username\ngetent group developers\n```\n\n## Create a user\n```bash\nsudo adduser ali\nsudo usermod -aG sudo ali\ngroups ali\n```\n`-aG` appends supplementary group membership. Omitting `-a` can replace other supplementary group memberships.\n\n## Manage groups\n```bash\nsudo groupadd developers\nsudo usermod -aG developers ali\ngetent group developers\n```\n\n## Practice\nCreate `labuser`, create a `students` group and add the user to it. Verify with `id labuser`. Before changing users or sudo access on a production server, verify the intended access path."
+    }
+  },
+  {
+    "id": "linux-ssh-basics",
+    "category": "Linux",
+    "level": "Intermediate",
+    "title": {
+      "uz": "SSH: serverga xavfsiz ulanish",
+      "en": "SSH: secure remote access"
+    },
+    "excerpt": {
+      "uz": "SSH masofadagi Linux server bilan shifrlangan aloqa o‘rnatish uchun ishlatiladi. Serverda OpenSSH Server paketi va ishlayotgan ssh",
+      "en": "SSH provides an encrypted connection to a remote Linux host. The server needs OpenSSH Server installed and the sshd service runnin"
+    },
+    "body": {
+      "uz": "SSH masofadagi Linux server bilan shifrlangan aloqa o‘rnatish uchun ishlatiladi. Serverda OpenSSH Server paketi va ishlayotgan sshd xizmati bo‘lishi kerak.\n\n## Xizmat holatini tekshirish\n```bash\nsudo systemctl status ssh\nsudo ss -tlnp | grep ’:22’\n```\n\n## Kalit juftligini yaratish\n```bash\nssh-keygen -t ed25519 -C \"feruzbek-laptop\"\nssh-copy-id user@192.0.2.10\nssh user@192.0.2.10\n```\n\nMaxfiy private key faylini hech kimga yubormang. Public key (`.pub`) serverdagi `authorized_keys` fayliga joylanadi.\n\n## Xavfsizlik tekshiruvlari\n- Keraksiz akkauntlarga SSH kirishini bermang.\n- Kalit fayl ruxsatlarini cheklang (`chmod 600`).\n- Firewall’da SSH portini faqat kerakli manbalardan oching.\n- PasswordAuthentication sozlamasini o‘zgartirishdan oldin yangi kalit bilan kirish ishlashini ikkinchi sessiyada tekshiring.\n\n## Mashq\nVirtual mashinada Ed25519 kalit yarating, public key’ni serverga yuboring va kalit bilan loginni sinang.",
+      "en": "SSH provides an encrypted connection to a remote Linux host. The server needs OpenSSH Server installed and the sshd service running.\n\n## Check the service\n```bash\nsudo systemctl status ssh\nsudo ss -tlnp | grep \":22\"\n```\n\n## Create a key pair\n```bash\nssh-keygen -t ed25519 -C \"feruzbek-laptop\"\nssh-copy-id user@192.0.2.10\nssh user@192.0.2.10\n```\n\nNever share your private key. The public key (`.pub`) is installed in the server user’s `authorized_keys` file.\n\n## Security checklist\n- Do not grant SSH access to unnecessary accounts.\n- Restrict private-key permissions (`chmod 600`).\n- Limit the SSH port in the firewall to required sources.\n- Before changing `PasswordAuthentication`, verify key-based access in a second session.\n\n## Practice\nCreate an Ed25519 key in a virtual machine, install the public key on a lab server and test key-based login."
+    }
+  },
+  {
+    "id": "linux-disk-storage",
+    "category": "Linux",
+    "level": "Intermediate",
+    "title": {
+      "uz": "Linux disk va fayl tizimlarini tekshirish",
+      "en": "Inspect Linux disks and filesystems"
+    },
+    "excerpt": {
+      "uz": "Disk boshqaruvida avval qurilmalar, bo‘limlar, mount nuqtalari va bo‘sh joyni aniqlash kerak. Buyruqlarni o‘chirish yoki formatlas",
+      "en": "Disk administration starts by identifying devices, partitions, mount points and available capacity. Always verify the target devic"
+    },
+    "body": {
+      "uz": "Disk boshqaruvida avval qurilmalar, bo‘limlar, mount nuqtalari va bo‘sh joyni aniqlash kerak. Buyruqlarni o‘chirish yoki formatlashdan oldin disk nomini ikki marta tekshiring.\n\n## Ko‘rish buyruqlari\n```bash\nlsblk -f\ndf -hT\nsudo blkid\nfindmnt\nsudo fdisk -l\n```\n\n`lsblk` block qurilmalarni, `df` ulangan fayl tizimlaridagi joyni, `findmnt` esa mount daraxtini ko‘rsatadi.\n\n## Mount qilish tushunchasi\nFayl tizimi katalogga mount qilingach, uning tarkibi shu katalog orqali ko‘rinadi. Doimiy mount uchun `/etc/fstab` ishlatiladi; UUID ishlatish qurilma nomi o‘zgarishidan keladigan xavfni kamaytiradi.\n\n```bash\nlsblk -f\nsudo mkdir -p /mnt/data\nsudo mount /dev/sdb1 /mnt/data\nfindmnt /mnt/data\n```\n\n## Mashq\nVirtual disk qo‘shing, `lsblk` bilan aniqlang, laboratoriya muhitida bo‘lim va fayl tizimi yarating, so‘ng vaqtincha mount qilib tekshiring. Haqiqiy diskda formatlash buyrug‘ini sinamang.",
+      "en": "Disk administration starts by identifying devices, partitions, mount points and available capacity. Always verify the target device before destructive operations such as formatting.\n\n## Inspection commands\n```bash\nlsblk -f\ndf -hT\nsudo blkid\nfindmnt\nsudo fdisk -l\n```\n\n`lsblk` lists block devices, `df` reports mounted filesystem capacity and `findmnt` shows the mount tree.\n\n## Mounting concept\nWhen a filesystem is mounted on a directory, its contents become accessible through that path. `/etc/fstab` defines persistent mounts; UUIDs reduce the risk of device-name changes.\n\n```bash\nlsblk -f\nsudo mkdir -p /mnt/data\nsudo mount /dev/sdb1 /mnt/data\nfindmnt /mnt/data\n```\n\n## Practice\nAttach a virtual disk, identify it with `lsblk`, create a partition and filesystem in a lab, then mount it temporarily. Do not test formatting commands on real data disks."
+    }
+  },
+  {
+    "id": "cisco-stp",
+    "category": "Cisco",
+    "level": "Intermediate",
+    "title": {
+      "uz": "Spanning Tree Protocol (STP) asoslari",
+      "en": "Spanning Tree Protocol (STP) fundamentals"
+    },
+    "excerpt": {
+      "uz": "Layer 2 switch tarmoqlarida ortiqcha fizik yo‘llar loop hosil qilishi mumkin. STP redundant yo‘llardan bir qismini bloklab, Layer ",
+      "en": "Redundant physical paths in Layer 2 switched networks can create loops. STP prevents Layer 2 loops by blocking some redundant path"
+    },
+    "body": {
+      "uz": "Layer 2 switch tarmoqlarida ortiqcha fizik yo‘llar loop hosil qilishi mumkin. STP redundant yo‘llardan bir qismini bloklab, Layer 2 loop’larni oldini oladi.\n\n## Muhim atamalar\n- Root Bridge — STP daraxtining markaziy switch’i.\n- Root Port — root bridge tomon eng yaxshi yo‘l.\n- Designated Port — segment uchun forwarding port.\n- Alternate Port — zaxira yo‘l, odatda bloklangan holatda.\n\n## Cisco IOS tekshiruvlari\n```text\nshow spanning-tree\nshow spanning-tree vlan 10\nshow spanning-tree root\n```\n\n## PortFast va BPDU Guard\nEnd-device ulangan access portlarda PortFast ishga tushish vaqtini qisqartirishi mumkin. BPDU Guard esa bunday port BPDU qabul qilsa, noto‘g‘ri switch ulanishidan himoya qilishga yordam beradi. Faqat chekka portlarda, topologiyani tushungan holda qo‘llang.\n\n```text\ninterface range fastEthernet 0/1 - 12\n switchport mode access\n spanning-tree portfast\n spanning-tree bpduguard enable\n```\n\n## Mashq\nUchta switchni redundant linklar bilan ulang, root bridge tanlanishini kuzating va `show spanning-tree` natijalarini izohlang.",
+      "en": "Redundant physical paths in Layer 2 switched networks can create loops. STP prevents Layer 2 loops by blocking some redundant paths.\n\n## Key terms\n- Root Bridge — the central switch in the spanning-tree topology.\n- Root Port — the best path toward the root bridge.\n- Designated Port — the forwarding port for a segment.\n- Alternate Port — a backup path, normally not forwarding.\n\n## Cisco IOS inspection\n```text\nshow spanning-tree\nshow spanning-tree vlan 10\nshow spanning-tree root\n```\n\n## PortFast and BPDU Guard\nPortFast can reduce transition delay on access ports connected to end devices. BPDU Guard can protect these edge ports by disabling a port if it receives a BPDU. Apply it only to intended edge ports after checking the topology.\n\n```text\ninterface range fastEthernet 0/1 - 12\n switchport mode access\n spanning-tree portfast\n spanning-tree bpduguard enable\n```\n\n## Practice\nConnect three switches with redundant links, observe root-bridge election and explain the output of `show spanning-tree`."
+    }
+  },
+  {
+    "id": "cisco-acl",
+    "category": "Cisco",
+    "level": "Intermediate",
+    "title": {
+      "uz": "Cisco ACL: standart va extended access list",
+      "en": "Cisco ACL: standard and extended access lists"
+    },
+    "excerpt": {
+      "uz": "Access Control List (ACL) trafikni IP manzil, protokol va portlar bo‘yicha ruxsat berish yoki rad etish uchun ishlatiladi. Cisco A",
+      "en": "An Access Control List (ACL) permits or denies traffic based on IP addresses, protocols and ports. Cisco ACLs are processed top-do"
+    },
+    "body": {
+      "uz": "Access Control List (ACL) trafikni IP manzil, protokol va portlar bo‘yicha ruxsat berish yoki rad etish uchun ishlatiladi. Cisco ACL qoidalari yuqoridan pastga tekshiriladi va oxirida yashirin implicit deny mavjud.\n\n## Standard ACL misoli\n```text\naccess-list 10 permit 192.168.10.0 0.0.0.255\ninterface gigabitEthernet 0/0\n ip access-group 10 in\n```\n\n## Named extended ACL misoli\n```text\nip access-list extended USERS-TO-WEB\n permit tcp 192.168.10.0 0.0.0.255 any eq 80\n permit tcp 192.168.10.0 0.0.0.255 any eq 443\n deny ip any any log\ninterface gigabitEthernet 0/1\n ip access-group USERS-TO-WEB in\n```\n\nBu faqat laboratoriya namunasi. Interfeys, yo‘nalish va qoidalar tartibi real topologiyaga mos bo‘lishi kerak.\n\n## Tekshirish\n```text\nshow access-lists\nshow ip interface gigabitEthernet 0/1\n```\n\n## Mashq\nLab tarmog‘ida bitta subnetga HTTP/HTTPS ruxsat bering va boshqa IP trafikni rad eting. ACL qo‘llashdan oldin mavjud kirish yo‘llarini tekshiring.",
+      "en": "An Access Control List (ACL) permits or denies traffic based on IP addresses, protocols and ports. Cisco ACLs are processed top-down and end with an implicit deny.\n\n## Standard ACL example\n```text\naccess-list 10 permit 192.168.10.0 0.0.0.255\ninterface gigabitEthernet 0/0\n ip access-group 10 in\n```\n\n## Named extended ACL example\n```text\nip access-list extended USERS-TO-WEB\n permit tcp 192.168.10.0 0.0.0.255 any eq 80\n permit tcp 192.168.10.0 0.0.0.255 any eq 443\n deny ip any any log\ninterface gigabitEthernet 0/1\n ip access-group USERS-TO-WEB in\n```\n\nThis is a lab example only. Match the interface, direction and rule order to the real topology.\n\n## Verification\n```text\nshow access-lists\nshow ip interface gigabitEthernet 0/1\n```\n\n## Practice\nIn a lab subnet, permit HTTP/HTTPS for one network and deny other IP traffic. Review existing access paths before applying an ACL."
+    }
+  },
+  {
+    "id": "mikrotik-firewall-filter",
+    "category": "MikroTik",
+    "level": "Intermediate",
+    "title": {
+      "uz": "MikroTik Firewall Filter: input, forward, output",
+      "en": "MikroTik Firewall Filter: input, forward, output"
+    },
+    "excerpt": {
+      "uz": "RouterOS firewall filter qoidalari trafikni uch asosiy chain bo‘yicha qayta ishlaydi: input — routerning o‘ziga kelayotgan trafik,",
+      "en": "RouterOS firewall filter processes traffic through three main chains: input — traffic destined for the router, forward — traffic r"
+    },
+    "body": {
+      "uz": "RouterOS firewall filter qoidalari trafikni uch asosiy chain bo‘yicha qayta ishlaydi: input — routerning o‘ziga kelayotgan trafik, forward — router orqali o‘tayotgan trafik, output — routerning o‘zi yaratgan trafik.\n\n## Qoidalarni ko‘rish\n```text\n/ip firewall filter print stats\n/ip firewall connection print\n```\n\n## Oddiy misol\n```text\n/ip firewall filter add chain=input connection-state=established,related action=accept\n/ip firewall filter add chain=input connection-state=invalid action=drop\n```\n\nBu to‘liq firewall siyosati emas. RouterOS’da qoidalar tartibi muhim; boshqaruv (Winbox/SSH) kirishini tasdiqlamasdan drop qoidasini qo‘shish routerga kirishni uzib qo‘yishi mumkin.\n\n## Tavsiya etiladigan tartib\n1. Joriy konfiguratsiyani backup qiling.\n2. LAN/WAN interfeys yoki interface-list’larni aniqlang.\n3. Avval established/related trafikni ko‘rib chiqing.\n4. Kerakli boshqaruv va servis portlariga ruxsatni saqlang.\n5. Qoidalarni laboratoriyada sinab, keyin rejalashtirib joriy qiling.\n\n## Mashq\nMikroTik CHR’da input va forward chain farqini ikki virtual klient yordamida kuzating.",
+      "en": "RouterOS firewall filter processes traffic through three main chains: input — traffic destined for the router, forward — traffic routed through it, and output — traffic generated by the router.\n\n## Inspect rules\n```text\n/ip firewall filter print stats\n/ip firewall connection print\n```\n\n## Basic example\n```text\n/ip firewall filter add chain=input connection-state=established,related action=accept\n/ip firewall filter add chain=input connection-state=invalid action=drop\n```\n\nThis is not a complete firewall policy. Rule order matters in RouterOS; adding a drop rule without preserving management access (Winbox/SSH) can lock you out.\n\n## Recommended workflow\n1. Back up the current configuration.\n2. Identify LAN/WAN interfaces or interface lists.\n3. Review established/related traffic handling.\n4. Preserve access to required management and service ports.\n5. Test rules in a lab before planned deployment.\n\n## Practice\nUse two virtual clients in MikroTik CHR to observe the difference between input and forward chains."
+    }
+  },
+  {
+    "id": "mikrotik-bridge-vlan",
+    "category": "MikroTik",
+    "level": "Advanced",
+    "title": {
+      "uz": "MikroTik Bridge VLAN Filtering asoslari",
+      "en": "MikroTik Bridge VLAN Filtering fundamentals"
+    },
+    "excerpt": {
+      "uz": "MikroTik RouterOS bridge VLAN filtering switchga o‘xshash Layer 2 VLAN segmentatsiyasini bajaradi. Konfiguratsiya PVID, tagged/unt",
+      "en": "MikroTik RouterOS bridge VLAN filtering provides Layer 2 VLAN segmentation similar to a switch. The configuration relies on PVID, "
+    },
+    "body": {
+      "uz": "MikroTik RouterOS bridge VLAN filtering switchga o‘xshash Layer 2 VLAN segmentatsiyasini bajaradi. Konfiguratsiya PVID, tagged/untagged portlar va bridge VLAN jadvaliga tayanadi.\n\n## Tekshirish buyruqlari\n```text\n/interface bridge print\n/interface bridge port print\n/interface bridge vlan print\n```\n\n## Konseptual misol\n```text\n/interface bridge add name=bridge1 vlan-filtering=no\n/interface bridge port add bridge=bridge1 interface=ether2 pvid=10\n/interface bridge port add bridge=bridge1 interface=ether3 pvid=20\n/interface bridge vlan add bridge=bridge1 vlan-ids=10 untagged=ether2 tagged=bridge1\n/interface bridge vlan add bridge=bridge1 vlan-ids=20 untagged=ether3 tagged=bridge1\n```\n\n`vlan-filtering=yes` ni yoqishdan oldin bridge VLAN jadvali, tagged trunk portlar va boshqaruv VLAN’ini to‘liq tekshiring. Noto‘g‘ri tartibdagi o‘zgarish routerga masofaviy kirishni uzishi mumkin.\n\n## Mashq\nCHR yoki mos laboratoriya qurilmasida VLAN 10 va VLAN 20 uchun alohida access portlar va bitta tagged trunk yarating; so‘ng bridge VLAN jadvalini tekshiring.",
+      "en": "MikroTik RouterOS bridge VLAN filtering provides Layer 2 VLAN segmentation similar to a switch. The configuration relies on PVID, tagged/untagged ports and the bridge VLAN table.\n\n## Inspection commands\n```text\n/interface bridge print\n/interface bridge port print\n/interface bridge vlan print\n```\n\n## Conceptual example\n```text\n/interface bridge add name=bridge1 vlan-filtering=no\n/interface bridge port add bridge=bridge1 interface=ether2 pvid=10\n/interface bridge port add bridge=bridge1 interface=ether3 pvid=20\n/interface bridge vlan add bridge=bridge1 vlan-ids=10 untagged=ether2 tagged=bridge1\n/interface bridge vlan add bridge=bridge1 vlan-ids=20 untagged=ether3 tagged=bridge1\n```\n\nBefore enabling `vlan-filtering=yes`, verify the bridge VLAN table, tagged trunk ports and management VLAN. An incorrectly ordered change can interrupt remote access.\n\n## Practice\nIn CHR or a suitable lab, create separate access ports for VLAN 10 and VLAN 20 plus one tagged trunk, then inspect the bridge VLAN table."
+    }
+  }
+]

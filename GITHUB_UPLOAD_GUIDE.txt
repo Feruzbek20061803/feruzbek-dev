@@ -1,0 +1,15 @@
+GITHUB WEB UPLOAD — QUICK STEPS
+
+1. Create a PRIVATE repository named: feruzbek-dev
+2. Do not initialize it with a README, .gitignore, or license (this package already contains them).
+3. Download and extract the FERUZBEK_DEV_GITHUB_SOURCE.zip on your computer.
+4. In the empty GitHub repository, choose Add file -> Upload files.
+5. Upload all files and folders from the extracted package (including hidden files like .gitignore and .github).
+6. Commit to the main branch with message: "Initial FERUZBEK.DEV source".
+7. Do not upload config.php, data/admin.json, .env, or production uploads.
+8. Keep the repository Private initially. Review certificate images and personal contact details before making it Public.
+
+Important:
+- This is a PHP site; GitHub Pages does not execute PHP.
+- FPS.ms remains the production host.
+- Do not expose passwords, tokens, hosting credentials, database credentials, private keys, or backups in commits.
